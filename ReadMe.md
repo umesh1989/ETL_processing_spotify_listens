@@ -1,6 +1,8 @@
 
 This file is to explain the flow of the program.
 
+This is part of an assignment I did so all the explainations are in regards with the assignment. I have not added the entire assignment for obvious reasons.
+
 **static parameters**
 
 All the static parameters(ex: db credentials, queries) are derived from static_data.ini file.
@@ -8,7 +10,8 @@ In the prod environment these can be derived from a key-vault.
 
 **Input files**
 
-All the input data is read from input directory. Input path is neing read from static_data.ini file.
+All the input data is read from input directory. Input path is being read from static_data.ini file.
+Dataset can be taken from https://listenbrainz.org/.
 
 **Output files**
 
