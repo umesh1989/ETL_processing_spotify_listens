@@ -1,0 +1,7 @@
+2022-11-08 19:32:17,275 - execution started
+2022-11-08 19:32:17,276 - reading input data file
+2022-11-08 19:32:17,276 - failure in reading file
+Traceback (most recent call last):
+  File "/Users/umesh/PycharmProjects/scalableCap/src/load_data.py", line 35, in read_file
+    if 'track_name' in line['track_metadta']:
+KeyError: 'track_metadta'

@@ -1,0 +1,33 @@
+2022-11-08 19:25:37,849 - execution started
+2022-11-08 19:25:37,850 - reading input data file
+2022-11-08 19:25:40,007 - number of duplicate listen entries: 168302
+2022-11-08 19:25:40,033 - total user: 333034, total tracks: 333034, total listen entries: 333034
+2022-11-08 19:25:40,034 - initiating data load
+2022-11-08 19:25:40,034 - insert ignore into users(user_name,added_on,user_hash) values (%s,%s,%s)
+2022-11-08 19:25:58,217 - user data load exited with status:0
+2022-11-08 19:25:58,217 - insert ignore into tracks(track_name,release_name,duration_mins,artist_name,track_hash) values (%s,%s,%s,%s,%s)
+2022-11-08 19:26:18,566 - track data load exited with status:0
+2022-11-08 19:26:18,566 - insert ignore into listen_temp(user_name,track_name,listend_at,listening_from,track_hash,user_hash,listen_hash) values (%s,%s,%s,%s,%s,%s,%s)
+2022-11-08 19:26:40,946 - listen data load exited with status:0
+2022-11-08 19:26:40,946 - initiating listen data processing
+2022-11-08 19:26:40,946 - update listen_temp lt inner join users u on lt.user_hash = u.user_hash set lt.user_id = u.user_id;
+2022-11-08 19:26:41,077 - data load exited with status: 0
+2022-11-08 19:26:41,077 - update listen_temp lt inner join tracks t on lt.track_hash = t.track_hash set lt.track_id = t.track_id;
+2022-11-08 19:26:41,297 - data load exited with status: 0
+2022-11-08 19:26:41,300 - inset ignore into listens (user_id,track_id, listend_at,listening_from,listen_hash) (select user_id,track_id, listend_at,listening_from,listen_hash from listen_temp);
+2022-11-08 19:26:41,306 - query execution failed
+Traceback (most recent call last):
+  File "/Users/umesh/PycharmProjects/scalableCap/venv/lib/python3.9/site-packages/mysql/connector/connection_cext.py", line 565, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'inset ignore into listens (user_id,track_id, listend_at,listening_from,listen_ha' at line 1
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/umesh/PycharmProjects/scalableCap/src/sql_utility.py", line 30, in execute_query
+    cursor.execute(query)
+  File "/Users/umesh/PycharmProjects/scalableCap/venv/lib/python3.9/site-packages/mysql/connector/cursor_cext.py", line 279, in execute
+    result = self._cnx.cmd_query(
+  File "/Users/umesh/PycharmProjects/scalableCap/venv/lib/python3.9/site-packages/mysql/connector/connection_cext.py", line 573, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.ProgrammingError: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'inset ignore into listens (user_id,track_id, listend_at,listening_from,listen_ha' at line 1

@@ -1,0 +1,20 @@
+2022-11-08 19:33:16,892 - execution started
+2022-11-08 19:33:16,893 - reading input data file
+2022-11-08 19:33:19,085 - number of duplicate listen entries: 168302
+2022-11-08 19:33:19,123 - total user: 333034, total tracks: 333034, total listen entries: 333034
+2022-11-08 19:33:19,123 - initiating data load
+2022-11-08 19:33:19,123 - insert ignore into users(user_name,added_on,user_hash) values (%s,%s,%s)
+2022-11-08 19:33:37,976 - user data load exited with status:0
+2022-11-08 19:33:37,976 - insert ignore into tracks(track_name,release_name,duration_mins,artist_name,track_hash) values (%s,%s,%s,%s,%s)
+2022-11-08 19:33:59,013 - track data load exited with status:0
+2022-11-08 19:33:59,014 - insert ignore into listen_temp(user_name,track_name,listend_at,listening_from,track_hash,user_hash,listen_hash) values (%s,%s,%s,%s,%s,%s,%s)
+2022-11-08 19:34:21,575 - listen data load exited with status:0
+2022-11-08 19:34:21,575 - initiating listen data processing
+2022-11-08 19:34:21,576 - update listen_temp lt inner join users u on lt.user_hash = u.user_hash set lt.user_id = u.user_id;
+2022-11-08 19:34:21,705 - data load exited with status: 0
+2022-11-08 19:34:21,705 - update listen_temp lt inner join tracks t on lt.track_hash = t.track_hash set lt.track_id = t.track_id;
+2022-11-08 19:34:21,925 - data load exited with status: 0
+2022-11-08 19:34:21,926 - insert ignore into listens (user_id,track_id, listend_at,listening_from,listen_hash) (select user_id,track_id, listend_at,listening_from,listen_hash from listen_temp);
+2022-11-08 19:34:25,186 - data load exited with status: 0
+2022-11-08 19:34:25,187 - truncate listen_temp
+2022-11-08 19:34:25,214 - data load exited with status: 0
