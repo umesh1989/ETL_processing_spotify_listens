@@ -37,9 +37,10 @@ There are a couple of logs present in the logs directory, to demonstrate how suc
 1. create a database in the mysql with name scalable(or create any db and replace the name in static_data.ini).
 2. update the db credentials in the static_data.ini
 3. Take create table queries from solution_description.md and create tables.(I could have made setup data store in the driver_file, but I realized it while preparing this file) 
-4. put the project in a directory
-5. run driver_script.py
-6. run solving_queries.py for testing the solution given for the questions asked in assignment.
+4. Create a python project
+5. put the project in a directory
+6. run driver_script.py
+7. run solving_queries.py for testing the solution given for the questions asked in assignment.
 
 _Explanation of the question asked in the assignment are given in Solution_description.md._
 
